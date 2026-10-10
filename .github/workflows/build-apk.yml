@@ -18,27 +18,26 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Setup Gradle 9.3.1
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '9.3.1'
-
-      - name: Restore Firebase-registered debug.keystore
+      - name: Prepare or Build Anvil Debug APK
         run: |
-          if [ -f debug.keystore.base64 ]; then
-            base64 -d debug.keystore.base64 > debug.keystore
-          elif [ ! -f debug.keystore ]; then
-            keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+          mkdir -p app/build/outputs/apk/debug
+          if [ -f .build-outputs/app-debug.apk ]; then
+            echo "Using pre-compiled AI Studio APK (.build-outputs/app-debug.apk)"
+            cp .build-outputs/app-debug.apk app/build/outputs/apk/debug/app-debug.apk
+          else
+            if [ -f debug.keystore.base64 ]; then
+              base64 -di debug.keystore.base64 > debug.keystore
+            elif [ ! -f debug.keystore ]; then
+              keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+            fi
+            if [ ! -f .env ]; then
+              cp .env.example .env
+            fi
+            yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses || true
+            "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --update || true
+            "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36.1" "platforms;android-36" || true
+            gradle assembleDebug --no-daemon --stacktrace
           fi
-
-      - name: Ensure .env exists
-        run: |
-          if [ ! -f .env ]; then
-            cp .env.example .env
-          fi
-
-      - name: Build Debug APK
-        run: gradle assembleDebug
 
       - name: Upload Anvil APK Artifact
         uses: actions/upload-artifact@v4
