@@ -1,0 +1,6 @@
+{
+  "name": "Anvil",
+  "description": "Strike. Shape. Master. A programming and computer science mastery studio with FSRS-5 spaced repetition, interactive code execution, Gemini AI Tutor, and Monthly Individual Profile Reports.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

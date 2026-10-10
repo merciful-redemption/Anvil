@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Anvil</string>
+    <string name="app_tagline">Strike. Shape. Master.</string>
+    <string name="app_subtitle">Where skill takes shape.</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="sign_out">Sign out</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_learn">Learn</string>
+    <string name="nav_practice">Practice</string>
+    <string name="nav_build">Build</string>
+    <string name="nav_you">You</string>
+    <string name="action_search">Search</string>
+    <string name="action_ai_tutor">AI Tutor</string>
+    <string name="action_settings">Settings</string>
+    <string name="mipr_title">Monthly Individual Profile Report</string>
+    <string name="mipr_generate_now">Generate report now</string>
+    <string name="calm_mode_label">Calm Mode</string>
+    <string name="error_auth_missing">Google Sign-In configuration missing: default_web_client_id not found</string>
+</resources>

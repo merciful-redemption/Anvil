@@ -1,0 +1,411 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Learner profile, preferences, XP, Wright rank progress, streak, and active course state.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Authenticated user UID matching request.auth.uid."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Learner display name (1 to 80 chars)."
+        },
+        "xp": {
+          "type": "integer",
+          "description": "Total XP earned by the learner (>= 0)."
+        },
+        "level": {
+          "type": "integer",
+          "description": "Current learner level (>= 1)."
+        },
+        "streak": {
+          "type": "integer",
+          "description": "Current active study streak in days (>= 0)."
+        },
+        "streakFreezes": {
+          "type": "integer",
+          "description": "Available streak freezes (0 to 3)."
+        },
+        "dailyGoalMinutes": {
+          "type": "integer",
+          "description": "Daily study goal in minutes (5 to 120)."
+        },
+        "activeMinutesToday": {
+          "type": "integer",
+          "description": "Active study minutes logged today (>= 0)."
+        },
+        "lessonsCompletedTotal": {
+          "type": "integer",
+          "description": "Total number of lessons completed (>= 0)."
+        },
+        "conceptsMasteredTotal": {
+          "type": "integer",
+          "description": "Total number of concepts mastered (>= 0)."
+        },
+        "activeCourseId": {
+          "type": "string",
+          "description": "ID of the currently active course."
+        },
+        "themeId": {
+          "type": "string",
+          "description": "Selected theme identifier from the 40-theme catalog."
+        },
+        "calmMode": {
+          "type": "boolean",
+          "description": "Whether Calm Mode is active (hides gamification)."
+        },
+        "onboardingCompleted": {
+          "type": "boolean",
+          "description": "Whether the learner has completed onboarding."
+        },
+        "restDaysCsv": {
+          "type": "string",
+          "description": "Comma-separated rest days of week (e.g., SAT,SUN)."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation server timestamp (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update server timestamp (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "displayName",
+        "xp",
+        "level",
+        "streak",
+        "dailyGoalMinutes",
+        "activeCourseId",
+        "themeId",
+        "calmMode",
+        "onboardingCompleted",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "ConceptState": {
+      "title": "ConceptState",
+      "description": "FSRS-5 spaced repetition and mastery state for an individual programming or science concept.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner user UID."
+        },
+        "conceptId": {
+          "type": "string",
+          "description": "Unique concept identifier."
+        },
+        "courseId": {
+          "type": "string",
+          "description": "Course identifier."
+        },
+        "domain": {
+          "type": "string",
+          "description": "MIPR domain name."
+        },
+        "title": {
+          "type": "string",
+          "description": "Human-readable concept title."
+        },
+        "stability": {
+          "type": "number",
+          "description": "FSRS-5 stability S in days."
+        },
+        "difficulty": {
+          "type": "number",
+          "description": "FSRS-5 difficulty D (1.0 to 10.0)."
+        },
+        "reps": {
+          "type": "integer",
+          "description": "Total review repetitions."
+        },
+        "lapses": {
+          "type": "integer",
+          "description": "Total review lapses."
+        },
+        "accuracyPermille": {
+          "type": "integer",
+          "description": "Rolling accuracy in permille (0 to 1000)."
+        },
+        "masteryState": {
+          "type": "string",
+          "description": "One of the 8 mastery states (Unseen, Introduced, Practicing, Proficient, Mastered, Refreshing, Regressed, Decaying)."
+        },
+        "lastReviewEpochDay": {
+          "type": "integer",
+          "description": "Epoch day of last review."
+        },
+        "dueEpochDay": {
+          "type": "integer",
+          "description": "Epoch day when next FSRS review is due."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of creation."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of last update."
+        }
+      },
+      "required": [
+        "userId",
+        "conceptId",
+        "courseId",
+        "domain",
+        "title",
+        "stability",
+        "difficulty",
+        "reps",
+        "lapses",
+        "accuracyPermille",
+        "masteryState",
+        "lastReviewEpochDay",
+        "dueEpochDay",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "CodeSnippet": {
+      "title": "CodeSnippet",
+      "description": "User-authored code snippet, playground program, or study note stored in the Snippet Vault.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner user UID."
+        },
+        "title": {
+          "type": "string",
+          "description": "Snippet or project title."
+        },
+        "language": {
+          "type": "string",
+          "description": "Programming language identifier."
+        },
+        "code": {
+          "type": "string",
+          "description": "Source code or note body."
+        },
+        "category": {
+          "type": "string",
+          "description": "Category tag (e.g., Playground, Project, Note, Science)."
+        },
+        "isFavorite": {
+          "type": "boolean",
+          "description": "Whether starred by the learner."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of creation."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of last update."
+        }
+      },
+      "required": [
+        "userId",
+        "title",
+        "language",
+        "code",
+        "category",
+        "isFavorite",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "MistakeEntry": {
+      "title": "MistakeEntry",
+      "description": "Mistake Journal entry recording an incorrect or hinted exercise for targeted retry.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner user UID."
+        },
+        "exerciseId": {
+          "type": "string",
+          "description": "Exercise identifier."
+        },
+        "conceptId": {
+          "type": "string",
+          "description": "Associated concept identifier."
+        },
+        "courseId": {
+          "type": "string",
+          "description": "Associated course identifier."
+        },
+        "promptSummary": {
+          "type": "string",
+          "description": "Question prompt summary."
+        },
+        "userAnswer": {
+          "type": "string",
+          "description": "Answer submitted by the learner."
+        },
+        "correctAnswer": {
+          "type": "string",
+          "description": "Expected answer."
+        },
+        "explanation": {
+          "type": "string",
+          "description": "Diagnostic explanation."
+        },
+        "retryCount": {
+          "type": "integer",
+          "description": "Number of successful retry sessions (0 to 10)."
+        },
+        "resolved": {
+          "type": "boolean",
+          "description": "Whether cleared after two correct sessions."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of creation."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of last update."
+        }
+      },
+      "required": [
+        "userId",
+        "exerciseId",
+        "conceptId",
+        "courseId",
+        "promptSummary",
+        "userAnswer",
+        "correctAnswer",
+        "explanation",
+        "retryCount",
+        "resolved",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "ProfileReport": {
+      "title": "ProfileReport",
+      "description": "Monthly Individual Profile Report (MIPR) snapshot generated for the learner.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner user UID."
+        },
+        "periodLabel": {
+          "type": "string",
+          "description": "Reporting period label (e.g., October 2026)."
+        },
+        "overallBand": {
+          "type": "string",
+          "description": "Proficiency band code (AD, PR, AP, DE, BE)."
+        },
+        "overallScorePermille": {
+          "type": "integer",
+          "description": "Weighted overall score in permille (0 to 1000)."
+        },
+        "summaryNarrative": {
+          "type": "string",
+          "description": "Executive narrative summary."
+        },
+        "focusRecommendations": {
+          "type": "string",
+          "description": "What to focus on next recommendations."
+        },
+        "strengths": {
+          "type": "string",
+          "description": "What the learner is doing well."
+        },
+        "domainScoresSummary": {
+          "type": "string",
+          "description": "Formatted domain band and score breakdown."
+        },
+        "activeMinutes": {
+          "type": "integer",
+          "description": "Total active minutes in reporting window."
+        },
+        "lessonsCompleted": {
+          "type": "integer",
+          "description": "Lessons completed in reporting window."
+        },
+        "conceptsMastered": {
+          "type": "integer",
+          "description": "Concepts mastered in reporting window."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of creation."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of last update."
+        }
+      },
+      "required": [
+        "userId",
+        "periodLabel",
+        "overallBand",
+        "overallScorePermille",
+        "summaryNarrative",
+        "focusRecommendations",
+        "strengths",
+        "domainScoresSummary",
+        "activeMinutes",
+        "lessonsCompleted",
+        "conceptsMastered",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/UserProfile"
+      },
+      "description": "Stores the learner's profile, preferences, XP, streak, and active course state."
+    },
+    "/users/{userId}/concept_states/{conceptId}": {
+      "schema": {
+        "$ref": "#/entities/ConceptState"
+      },
+      "description": "Stores FSRS-5 spaced repetition and mastery state per concept for the learner."
+    },
+    "/users/{userId}/snippets/{snippetId}": {
+      "schema": {
+        "$ref": "#/entities/CodeSnippet"
+      },
+      "description": "Stores learner-created code snippets, playground programs, and study notes."
+    },
+    "/users/{userId}/mistakes/{mistakeId}": {
+      "schema": {
+        "$ref": "#/entities/MistakeEntry"
+      },
+      "description": "Stores Mistake Journal items for targeted review and retry."
+    },
+    "/users/{userId}/reports/{reportId}": {
+      "schema": {
+        "$ref": "#/entities/ProfileReport"
+      },
+      "description": "Stores generated Monthly Individual Profile Reports (MIPR)."
+    }
+  }
+}
